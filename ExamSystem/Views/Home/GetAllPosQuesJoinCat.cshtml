@@ -1,0 +1,99 @@
+﻿@model IEnumerable<LiveExam.BAL.PosQueJoinModel>
+@if (Request.IsAuthenticated)
+{
+    <style>
+        .container2 {
+            background: linear-gradient(to bottom,#b0c8e0 0%,#fff 25%);
+        }
+
+        thead {
+            background-color: #3d6b9c;
+            color: white;
+        }
+    </style>
+    <div style="padding-top:10px; padding-bottom:10px;">
+        @*<button type="button" class="btn navbar-btn">
+            <i class="fa fa-backward" aria-hidden="true">
+                @Html.ActionLink("Back", "GetAllQuesPosData", null, new { style = "text-decoration:none;" })
+            </i>
+        </button>*@
+        <a href="@Url.Action("GetAllQuesPosData", "Home", null)">
+            <img src="~/Content/Images/back_icon.png" style="vertical-align: middle; width: 30px; " />
+        </a>
+        <a class="pull-right " href="@Url.Action("addposquejoin", "Home", null)">
+            <img src="~/Content/Images/icon_addb.png" style="vertical-align: middle; width: 30px; " />
+        </a>
+
+    </div>
+
+    <div class="container bg-info img-rounded">
+        <div class="card text-center">
+            <h2 class="card-title">Position Dept. and Question Dept. Records</h2>
+        </div>
+    </div>
+
+    <div class="container container2 ">
+        <br />
+        <table class="table table-striped table-hover table-bordered" id="OnlyPos">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Position.NAME)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.QuestionCategory.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoOfQuestion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position.NAME)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.QuestionCategory.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoOfQuestion)
+                        </td>
+                        <td>
+                            @(item.IsActive != null && item.IsActive.Value ? "Yes" : "No")
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("EditPosQueJoin", "Home", new { id = item.ID })">
+                                <img src="@Url.Content("~/Content/Images/edit.png")" />
+                            </a>
+                            &nbsp;
+                            <a href="@Url.Action("GetPosQueJoinSingleData", "Home", new { id = item.ID })">
+                                <img src="@Url.Content("~/Content/Images/view.png")" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        //console.log($('#tblGetAllQuesPos').length)
+        $('#OnlyPos').DataTable();
+    })
+</script>
+

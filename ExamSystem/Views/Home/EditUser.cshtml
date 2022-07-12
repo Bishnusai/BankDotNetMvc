@@ -1,0 +1,116 @@
+﻿@model LiveExam.BAL.UsersModels
+@if (Request.IsAuthenticated)
+{
+    <style>
+        .container2 {
+            background: linear-gradient(to bottom,#b0c8e0 0%,#fff 25%);
+            border-radius: 10px;
+        }
+
+        .designPassword{
+            margin-left:200px;
+        }
+    </style>
+    <br />
+    <div>
+        <button type="button" class="btn">
+            <i class="fa fa-home" aria-hidden="true">
+                @Html.ActionLink("Home", "Index", null, new { style = "text-decoration:none;" })
+            </i>
+        </button>
+        <a class="pull-right " href="@Url.Action("GetAllUserRecords", "Home", null)">
+            <img src="~/Content/Images/back_icon.png" style="vertical-align: middle; width: 30px; " />
+        </a>
+    </div>
+    <br />
+    <div class="container bg-info img-rounded">
+        <div class="card text-center">
+            <h2 class="card-title">Edit User</h2>
+        </div>
+    </div>
+
+
+    <div class="container container2 ">
+        <br />
+        @using (Html.BeginForm())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.UserID)
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 " })
+                    <div class="col-md-10" style="display:flex;">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control  " } })
+
+                        <button id="show_password" class="btn btn-primary" type="button">
+                            <span class="fa fa-eye-slash icon"></span>
+                        </button>
+                        @*@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger designPassword" })*@
+
+                    </div>
+                    <div class="col-md-10">
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger designPassword" })
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-3">
+                        <input type="submit" value="Save" class="btn btn-default" />
+
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#show_password").click(function () {
+                var x = document.getElementById("Password");
+                if (x.type === "password") {
+                    x.type = "text";
+                    $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+
+                }
+                else {
+                    x.type = "password";
+                    $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+
+                }
+            });
+        });
+    </script>
+}

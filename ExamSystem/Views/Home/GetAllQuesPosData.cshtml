@@ -1,0 +1,107 @@
+﻿@model IEnumerable<LiveExam.BAL.PosQueJoinModel>
+
+@if (Request.IsAuthenticated)
+{
+    <link href="~/content/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .container2 {
+            background: linear-gradient(to bottom,#b0c8e0 0%,#fff 25%);
+        }
+
+        thead {
+            background-color: #3d6b9c;
+            color: white;
+        }
+    </style>
+    <div class="container">
+        <button type="button" class="btn navbar-btn">
+            <i class="fa fa-home" aria-hidden="true">
+
+                @Html.ActionLink("Home", "Index", null, new { style = "text-decoration:none;" })
+
+            </i>
+        </button>
+    </div>
+    <div class="container bg-info img-rounded">
+        <div class="card text-center">
+            <h2 class="card-title">Position and Question join Records</h2>
+        </div>
+    </div>
+
+    <div class="container container2">
+        <br />
+        <table class="table table-bordered table-striped table-hover" id="tblGetAllQuesPos">
+            <thead>
+                <tr>
+                    @*<th>Id</th>*@
+                    @*<th>Position id</th>*@
+                    <th>Position Name</th>
+                    <th>
+
+                        No of Question
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@{
+                        int noOfQuestion = 0;
+                    }*@
+                @foreach (var item in Model.Where(u => u.IsActive == true).GroupBy(u => u.Position.NAME, (key, items) => new
+                {
+                    PositionName = key,
+                    IsActive = items.Max(x => x.IsActive),
+
+                    NoOfQuestion = items.Sum(x => x.NoOfQuestion),
+                    PositionID = items.Max(x => x.PositionID),
+                    ID = items.Max(x => x.ID),
+
+
+                    //if (item.IsActive.Value == true)
+                    //    {
+                    //        item.NoOfQuestion = items.Sum(x => x.NoOfQuestion),
+
+                    //        }
+
+                }))
+                {
+                    <tr>
+
+                        <td scope="row">@Html.DisplayFor(_ => item.PositionName)</td>
+
+                        <td scope="row">
+                            @Html.DisplayFor(_ => item.NoOfQuestion)
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn">
+                                @Html.ActionLink("Position", "GetAllPosQuesJoinCat", new { @id = item.PositionID }, new { style = "text-decoration:none;" })
+                            </button>
+                            @*<button type="button" class="btn">
+                                    @Html.ActionLink("Details", "GetPosQueJoinSingleData", new { @id = item.PositionID }, new { style = "text-decoration:none;" })
+                                </button>*@
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+}
+
+<script>
+    $(document).ready(function () {
+        //console.log($('#tblGetAllQuesPos').length)
+        $('#tblGetAllQuesPos').DataTable();
+    })
+</script>
+
+

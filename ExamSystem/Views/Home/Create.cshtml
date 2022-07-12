@@ -1,0 +1,163 @@
+﻿@model LiveExam.BAL.UsersModels
+
+<style>
+    body {
+        background-image: url("../../Content/Images/computer.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        height: auto;
+    }
+    .hii {
+        display: flex;
+        margin-top: 100px;
+    }
+    .text-danger {
+      
+        color: red;
+    }
+    .card-body {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        height: 380px;
+        padding: 20px;
+        /*margin-top:-200px;*/
+        border-radius: 0 0 12px 12px;
+        color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: cadetblue;
+        width: 300px;
+    }
+    .form-horizontal {
+        display: inline-block;
+    }
+    .card-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom-color: slategray;
+        border-radius: 12px 12px 0 0;
+        padding: 8px;
+        font-size: 18px;
+        box-shadow: 4px 0 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: cadetblue;
+        letter-spacing: 2px;
+    }
+    p {
+        color: white;
+        font-weight: 600;
+    }
+    .btn3 {
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 12px;
+        background-color: #A62773;
+        color: white;
+        letter-spacing: 2px;
+    }
+
+        .btn3:hover {
+            background-color: whitesmoke;
+            color: red;
+        }
+
+    .btn4 {
+        background-color: white;
+        font-weight: bold;
+    }
+
+    .btn5 {
+        color: orange;
+        font-weight: bold;
+    }
+
+        .btn5:hover {
+            color: forestgreen;
+        }
+
+    .btn4:hover {
+        background-color: orange;
+        color: white;
+        font-weight: bold;
+    }
+
+    .inner-addon .glyphicon {
+        font-size: 22px;
+        padding: 10px;
+        pointer-events: none;
+    }
+</style>
+<div class="row">
+    <div class="col hii">
+        <div class="card">
+            <div class="card-header">
+                <p>Register</p>
+            </div>
+            <div class="card-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <br /><br />
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "User Name" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.DisplayName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Display Name" } })
+                                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control", @placeholder = "Is Active" } })
+                                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class=" col-md-12">
+                                <input type="submit" value="Create" class="btn btn-success" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" class="btn navbar-btn">
+
+                                    @Html.ActionLink("Login", "Login", null, new { style = "text-decoration:none;" })
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

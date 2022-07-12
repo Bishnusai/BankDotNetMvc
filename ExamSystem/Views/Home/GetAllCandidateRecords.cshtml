@@ -1,0 +1,146 @@
+﻿@model IEnumerable<LiveExam.DAL.Candidate>
+
+
+@if (Request.IsAuthenticated)
+{
+    <style>
+        .container2 {
+            background: linear-gradient(to bottom,#b0c8e0 0%,#fff 25%);
+        }
+
+        thead {
+            background-color: #3d6b9c;
+            color: white;
+        }
+    </style>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+    <button type="button" class="btn navbar-btn">
+        <i class="fa fa-home" aria-hidden="true">
+            @Html.ActionLink("Home", "Index", null, new { style = "text-decoration:none;" })
+        </i>
+    </button>
+    <div class="container bg-info img-rounded">
+        <div class="card text-center">
+            <h2 class="card-title">Candidate Records</h2>
+        </div>
+    </div>
+
+    <div class="container container2">
+        <br />
+        <table class="table table-bordered table-striped table-hover " id="lstCandidate">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.College.CollegeName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmailId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Mobile)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Percentage)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsExamComplete)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(u=>u.IsActive==true))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @if (item.Gender == "M")
+                            {
+                                <font>male</font>
+                            }
+                            else
+                            {
+                                <font>female</font>
+                            }
+
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.College.CollegeName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmailId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mobile)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Percentage)
+                        </td>
+
+                        <td>
+
+                            @if (item.IsExamComplete == null)
+                            {
+                                <font>NO</font>
+                            }
+                            else
+                            {
+                                <font>YES</font>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsActive == false)
+                            {
+                                <font>NO</font>
+                            }
+                            else
+                            {
+                                <font>YES</font>
+                            }
+
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+
+
+<script>
+    $(document).ready(function () {
+        console.log($('#lstCandidate').length)
+        $('#lstCandidate').DataTable({
+            //can use one from both of them
+            //"order": [],
+            "aaSorting": [],
+            //"columnDefs": [{
+            //    "targets": 0,
+            //    "orderable": false
+            //}]
+        });
+    })
+</script>
+

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<LiveExams.BAL.UsersModels>
+@if (Request.IsAuthenticated)
+{
+    <style>
+        .container2 {
+            background: linear-gradient(to bottom,#b0c8e0 0%,#fff 25%);
+        }
+
+        thead {
+            background-color: #3d6b9c;
+            color: white;
+        }
+    </style>
+    <div>
+        <br />
+        <button type="button" class="btn">
+            <i class="fa fa-home" aria-hidden="true">
+                @Html.ActionLink("Home", "Index", null, new { style = "text-decoration:none;" })
+            </i>
+        </button>
+
+        @*<button type="button" class="btn navbar-btn pull-right">
+                <i class="fa fa-desktop" aria-hidden="true">
+                    @Html.ActionLink("Create User", "Create", null, new { style = "text-decoration:none;" })
+                </i>
+            </button>*@
+    </div>
+    <br />
+    <div class="container bg-info img-rounded">
+        <div class="card text-center">
+            <h2 class="card-title">User's Records</h2>
+        </div>
+    </div>
+    using (Html.BeginForm("Export", "Home", FormMethod.Post))
+    {
+        
+        <input type="submit" value="Export" />
+    }
+    <div class="container container2">
+        <br />
+        <table class="table table-striped table-bordered table-hover" id="AllUser">
+            <thead>
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DisplayName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsActive)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.Password)
+                        </th>*@
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DisplayName)
+                        </td>
+                        <td>
+                            @(item.IsActive != null && item.IsActive.Value ? "Yes" : "No")
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Password)
+                            </td>*@
+                        <td>
+
+                            <a href="@Url.Action("EditUser", "Home", new { id = item.UserID })">
+                                <img src="@Url.Content("~/Content/Images/edit.png")" />
+                            </a>
+                            &nbsp;
+                            <a href="@Url.Action("GetSingleUserDetails", "Home", new { id = item.UserID })">
+                                <img src="@Url.Content("~/Content/Images/view.png")" />
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $('#AllUser').DataTable();
+    })
+</script>

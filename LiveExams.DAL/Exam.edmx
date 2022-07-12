@@ -1,0 +1,1696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LiveExamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CandExamLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="QueCatId" Type="int" Nullable="false" />
+          <Property Name="QueId" Type="int" Nullable="false" />
+          <Property Name="AnsId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="BirthDate" Type="datetime" Nullable="false" />
+          <Property Name="CollegeId" Type="int" Nullable="false" />
+          <Property Name="QualificationId" Type="int" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="PositionId" Type="int" Nullable="false" />
+          <Property Name="TechForTraining" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RegisDate" Type="datetime" Nullable="false" />
+          <Property Name="ExamDate" Type="datetime" />
+          <Property Name="QueID" Type="varchar(max)" />
+          <Property Name="Percentage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="TimeRemain" Type="int" />
+          <Property Name="IsExamComplete" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="College">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CollegeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="University" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TimeMinutes" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="TechnologyId" Type="int" />
+        </EntityType>
+        <EntityType Name="PosQueJoin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PositionID" Type="int" Nullable="false" />
+          <Property Name="QueCatID" Type="bigint" Nullable="false" />
+          <Property Name="NoOfQuestion" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Qualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="bigint" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionID" Type="bigint" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsRightAnswer" Type="bit" />
+          <Property Name="AnswerOrder" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="QuestionCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeMinutes" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Technology">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TechnologyName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Candidate_College">
+          <End Role="College" Type="Self.College" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="CollegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Position_Technology">
+          <End Role="Technology" Type="Self.Technology" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technology">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="TechnologyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PosQueJoin_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="PosQueJoin" Type="Self.PosQueJoin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PosQueJoin">
+              <PropertyRef Name="PositionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PosQueJoin_QuestionCategory">
+          <End Role="QuestionCategory" Type="Self.QuestionCategory" Multiplicity="1" />
+          <End Role="PosQueJoin" Type="Self.PosQueJoin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="PosQueJoin">
+              <PropertyRef Name="QueCatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_QuestionCategory">
+          <End Role="QuestionCategory" Type="Self.QuestionCategory" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Cand_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="UserPassword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Candidate_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="bit" Mode="In" />
+          <Parameter Name="dob" Type="date" Mode="In" />
+          <Parameter Name="clgId" Type="bigint" Mode="In" />
+          <Parameter Name="QualId" Type="bigint" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="mobile" Type="varchar" Mode="In" />
+          <Parameter Name="posId" Type="bigint" Mode="In" />
+          <Parameter Name="techId" Type="bigint" Mode="In" />
+          <Parameter Name="uname" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="Change_IsActive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Change_IsActive_College" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Change_IsActive_Result" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="College_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="bigint" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="College_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clgName" Type="varchar" Mode="In" />
+          <Parameter Name="univ" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="College_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="bigint" Mode="In" />
+          <Parameter Name="clgName" Type="varchar" Mode="In" />
+          <Parameter Name="univ" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="Export_Candidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="collegeID" Type="int" Mode="In" />
+          <Parameter Name="startDate" Type="varchar" Mode="In" />
+          <Parameter Name="endDate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Export_Candidate_New" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="collegeID" Type="int" Mode="In" />
+          <Parameter Name="startDate" Type="varchar" Mode="In" />
+          <Parameter Name="endDate" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Get_AllCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_College" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_College_Tab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_Position" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_Qualification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_QueCategoryName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_QustionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PosID" Type="bigint" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="Mode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Get_SelectedCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Get_Technology" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Get_Time" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="GetAdminQuestionList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Qualiname" Type="varchar" Mode="In" />
+          <Parameter Name="Techname" Type="varchar" Mode="In" />
+          <Parameter Name="Clgname" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Insert_ExamResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Percentage" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="Position_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Position_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="time" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="Position_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Time" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PosQueJoin_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PosID" Type="bigint" Mode="In" />
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+          <Parameter Name="Question" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PosQueJoin_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PosID" Type="bigint" Mode="In" />
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+          <Parameter Name="Question" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Session_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_GetExamData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateId" Type="bigint" Mode="In" />
+          <Parameter Name="PositionId" Type="bigint" Mode="In" />
+          <Parameter Name="Time" Type="int" Mode="InOut" />
+          <Parameter Name="NoOfQuestion" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SP_GetStudentResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CandidateID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="SP_RegisterCandidate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Gender" Type="char" Mode="In" />
+          <Parameter Name="dob" Type="date" Mode="In" />
+          <Parameter Name="clgId" Type="bigint" Mode="In" />
+          <Parameter Name="QualId" Type="bigint" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="mobile" Type="varchar" Mode="In" />
+          <Parameter Name="posId" Type="bigint" Mode="In" />
+          <Parameter Name="techId" Type="bigint" Mode="In" />
+          <Parameter Name="uname" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+          <Parameter Name="isActive" Type="bit" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="Split" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RowData" Type="nvarchar" Mode="In" />
+          <Parameter Name="SplitOn" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Data" Type="nvarchar" MaxLength="100" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="Technology_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="Technology_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="Technology_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="bigint" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="TestAnswer_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AnswerID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="TestAnswer_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="QuestionID" Type="bigint" Mode="In" />
+          <Parameter Name="Answer" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsRightAnswer" Type="bit" Mode="In" />
+          <Parameter Name="AnswerOrder" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TestAnswer_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TestAnswer_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AnswerID" Type="bigint" Mode="In" />
+          <Parameter Name="QuestionID" Type="bigint" Mode="In" />
+          <Parameter Name="Answer" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsRightAnswer" Type="bit" Mode="In" />
+          <Parameter Name="AnswerOrder" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TestAnswerListByQuestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="QuestionID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="TestCategory_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TestCategory_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="TestCategory_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="TestCategory_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TestCategory_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorMsg" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="TestCategoryLogin_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TestQuestion_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="QuestionID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="TestQuestion_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+          <Parameter Name="Detail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="QuestionID" Type="bigint" Mode="InOut" />
+        </Function>
+        <Function Name="TestQuestion_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TestQuestion_SelectByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="TestQuestion_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="QuestionID" Type="bigint" Mode="In" />
+          <Parameter Name="CategoryID" Type="bigint" Mode="In" />
+          <Parameter Name="Detail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="TestQuestionListByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="i_CategoryID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="User_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="varchar" Mode="In" />
+          <Parameter Name="UserPassword" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="LiveExamModelStoreContainer">
+          <EntitySet Name="CandExamLog" EntityType="Self.CandExamLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidate" EntityType="Self.Candidate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="College" EntityType="Self.College" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PosQueJoin" EntityType="Self.PosQueJoin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qualification" EntityType="Self.Qualification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionAnswer" EntityType="Self.QuestionAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionCategory" EntityType="Self.QuestionCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Technology" EntityType="Self.Technology" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Candidate_College" Association="Self.FK_Candidate_College">
+            <End Role="College" EntitySet="College" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_Position" Association="Self.FK_Candidate_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Candidate" EntitySet="Candidate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Position_Technology" Association="Self.FK_Position_Technology">
+            <End Role="Technology" EntitySet="Technology" />
+            <End Role="Position" EntitySet="Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PosQueJoin_Position" Association="Self.FK_PosQueJoin_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="PosQueJoin" EntitySet="PosQueJoin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PosQueJoin_QuestionCategory" Association="Self.FK_PosQueJoin_QuestionCategory">
+            <End Role="QuestionCategory" EntitySet="QuestionCategory" />
+            <End Role="PosQueJoin" EntitySet="PosQueJoin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_QuestionCategory" Association="Self.FK_Question_QuestionCategory">
+            <End Role="QuestionCategory" EntitySet="QuestionCategory" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_Question" Association="Self.FK_QuestionAnswer_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LiveExamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="Split_Result">
+          <Property Name="Data" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <EntityType Name="CandExamLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="QueCatId" Type="Int32" Nullable="false" />
+          <Property Name="QueId" Type="Int32" Nullable="false" />
+          <Property Name="AnsId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CollegeId" Type="Int32" Nullable="false" />
+          <Property Name="QualificationId" Type="Int32" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <Property Name="TechForTraining" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegisDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExamDate" Type="DateTime" Precision="3" />
+          <Property Name="QueID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Percentage" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="TimeRemain" Type="Int32" />
+          <Property Name="IsExamComplete" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="College" Relationship="Self.FK_Candidate_College" FromRole="Candidate" ToRole="College" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_Candidate_Position" FromRole="Candidate" ToRole="Position" />
+        </EntityType>
+        <EntityType Name="College">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CollegeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Candidates" Relationship="Self.FK_Candidate_College" FromRole="College" ToRole="Candidate" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeMinutes" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="TechnologyId" Type="Int32" />
+          <NavigationProperty Name="Candidates" Relationship="Self.FK_Candidate_Position" FromRole="Position" ToRole="Candidate" />
+          <NavigationProperty Name="Technology" Relationship="Self.FK_Position_Technology" FromRole="Position" ToRole="Technology" />
+          <NavigationProperty Name="PosQueJoins" Relationship="Self.FK_PosQueJoin_Position" FromRole="Position" ToRole="PosQueJoin" />
+        </EntityType>
+        <EntityType Name="PosQueJoin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionID" Type="Int32" Nullable="false" />
+          <Property Name="QueCatID" Type="Int64" Nullable="false" />
+          <Property Name="NoOfQuestion" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_PosQueJoin_Position" FromRole="PosQueJoin" ToRole="Position" />
+          <NavigationProperty Name="QuestionCategory" Relationship="Self.FK_PosQueJoin_QuestionCategory" FromRole="PosQueJoin" ToRole="QuestionCategory" />
+        </EntityType>
+        <EntityType Name="Qualification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="QuestionCategory" Relationship="Self.FK_Question_QuestionCategory" FromRole="Question" ToRole="QuestionCategory" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK_QuestionAnswer_Question" FromRole="Question" ToRole="QuestionAnswer" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="AnswerID" />
+          </Key>
+          <Property Name="AnswerID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="Int64" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsRightAnswer" Type="Boolean" />
+          <Property Name="AnswerOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="Self.FK_QuestionAnswer_Question" FromRole="QuestionAnswer" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="QuestionCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TimeMinutes" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PosQueJoins" Relationship="Self.FK_PosQueJoin_QuestionCategory" FromRole="QuestionCategory" ToRole="PosQueJoin" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_QuestionCategory" FromRole="QuestionCategory" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Technology">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TechnologyName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Positions" Relationship="Self.FK_Position_Technology" FromRole="Technology" ToRole="Position" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Candidate_College">
+          <End Role="College" Type="Self.College" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="College">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="CollegeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Candidate_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="Candidate" Type="Self.Candidate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Candidate">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Position_Technology">
+          <End Role="Technology" Type="Self.Technology" Multiplicity="0..1" />
+          <End Role="Position" Type="Self.Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Technology">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Position">
+              <PropertyRef Name="TechnologyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PosQueJoin_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="PosQueJoin" Type="Self.PosQueJoin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PosQueJoin">
+              <PropertyRef Name="PositionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PosQueJoin_QuestionCategory">
+          <End Role="QuestionCategory" Type="Self.QuestionCategory" Multiplicity="1" />
+          <End Role="PosQueJoin" Type="Self.PosQueJoin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="PosQueJoin">
+              <PropertyRef Name="QueCatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_QuestionCategory">
+          <End Role="QuestionCategory" Type="Self.QuestionCategory" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionCategory">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LiveExamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CandExamLogs" EntityType="Self.CandExamLog" />
+          <EntitySet Name="Candidates" EntityType="Self.Candidate" />
+          <EntitySet Name="Colleges" EntityType="Self.College" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="PosQueJoins" EntityType="Self.PosQueJoin" />
+          <EntitySet Name="Qualifications" EntityType="Self.Qualification" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswer" />
+          <EntitySet Name="QuestionCategories" EntityType="Self.QuestionCategory" />
+          <EntitySet Name="Technologies" EntityType="Self.Technology" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Candidate_College" Association="Self.FK_Candidate_College">
+            <End Role="College" EntitySet="Colleges" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Candidate_Position" Association="Self.FK_Candidate_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Candidate" EntitySet="Candidates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Position_Technology" Association="Self.FK_Position_Technology">
+            <End Role="Technology" EntitySet="Technologies" />
+            <End Role="Position" EntitySet="Positions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PosQueJoin_Position" Association="Self.FK_PosQueJoin_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="PosQueJoin" EntitySet="PosQueJoins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PosQueJoin_QuestionCategory" Association="Self.FK_PosQueJoin_QuestionCategory">
+            <End Role="QuestionCategory" EntitySet="QuestionCategories" />
+            <End Role="PosQueJoin" EntitySet="PosQueJoins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_QuestionCategory" Association="Self.FK_Question_QuestionCategory">
+            <End Role="QuestionCategory" EntitySet="QuestionCategories" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_Question" Association="Self.FK_QuestionAnswer_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(LiveExamModel.Split_Result)">
+            <Parameter Name="RowData" Mode="In" Type="String" />
+            <Parameter Name="SplitOn" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Cand_Login" ReturnType="Collection(LiveExamModel.Cand_Login_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="UserPassword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Candidate_Insert">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="dob" Mode="In" Type="DateTime" />
+            <Parameter Name="clgId" Mode="In" Type="Int64" />
+            <Parameter Name="QualId" Mode="In" Type="Int64" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="mobile" Mode="In" Type="String" />
+            <Parameter Name="posId" Mode="In" Type="Int64" />
+            <Parameter Name="techId" Mode="In" Type="Int64" />
+            <Parameter Name="uname" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Change_IsActive">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Change_IsActive_College">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Change_IsActive_Result">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="College_Delete">
+            <Parameter Name="Id" Mode="In" Type="Int64" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="College_Insert">
+            <Parameter Name="clgName" Mode="In" Type="String" />
+            <Parameter Name="univ" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="College_Update">
+            <Parameter Name="id" Mode="In" Type="Int64" />
+            <Parameter Name="clgName" Mode="In" Type="String" />
+            <Parameter Name="univ" Mode="In" Type="String" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Export_Candidate" ReturnType="Collection(LiveExamModel.Export_Candidate_Result)">
+            <Parameter Name="collegeID" Mode="In" Type="Int32" />
+            <Parameter Name="startDate" Mode="In" Type="String" />
+            <Parameter Name="endDate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Export_Candidate_New" ReturnType="Collection(LiveExamModel.Export_Candidate_New_Result)">
+            <Parameter Name="collegeID" Mode="In" Type="Int32" />
+            <Parameter Name="startDate" Mode="In" Type="String" />
+            <Parameter Name="endDate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Get_AllCategory" ReturnType="Collection(LiveExamModel.Get_AllCategory_Result)" />
+          <FunctionImport Name="Get_College" ReturnType="Collection(LiveExamModel.Get_College_Result)" />
+          <FunctionImport Name="Get_College_Tab" ReturnType="Collection(LiveExamModel.Get_College_Tab_Result)" />
+          <FunctionImport Name="Get_Position" ReturnType="Collection(LiveExamModel.Get_Position_Result)" />
+          <FunctionImport Name="Get_Qualification" ReturnType="Collection(LiveExamModel.Get_Qualification_Result)" />
+          <FunctionImport Name="Get_QueCategoryName" ReturnType="Collection(LiveExamModel.Get_QueCategoryName_Result)" />
+          <FunctionImport Name="Get_QustionList" ReturnType="Collection(LiveExamModel.Get_QustionList_Result)">
+            <Parameter Name="PosID" Mode="In" Type="Int64" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="Mode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Get_SelectedCategory" ReturnType="Collection(LiveExamModel.Get_SelectedCategory_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Technology" ReturnType="Collection(LiveExamModel.Get_Technology_Result)" />
+          <FunctionImport Name="Get_Time" ReturnType="Collection(Int32)">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="GetAdminQuestionList" ReturnType="Collection(LiveExamModel.GetAdminQuestionList_Result)" />
+          <FunctionImport Name="GetResult" ReturnType="Collection(LiveExamModel.GetResult_Result)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Qualiname" Mode="In" Type="String" />
+            <Parameter Name="Techname" Mode="In" Type="String" />
+            <Parameter Name="Clgname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_ExamResult">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Percentage" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Position_Delete">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Position_Insert">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="time" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Position_Update">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Time" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PosQueJoin_Insert">
+            <Parameter Name="PosID" Mode="In" Type="Int64" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+            <Parameter Name="Question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PosQueJoin_Update">
+            <Parameter Name="PosID" Mode="In" Type="Int64" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+            <Parameter Name="Question" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Session_Login" ReturnType="Collection(LiveExamModel.Session_Login_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetExamData" ReturnType="Collection(String)">
+            <Parameter Name="CandidateId" Mode="In" Type="Int64" />
+            <Parameter Name="PositionId" Mode="In" Type="Int64" />
+            <Parameter Name="Time" Mode="InOut" Type="Int32" />
+            <Parameter Name="NoOfQuestion" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_GetStudentResult" ReturnType="Collection(LiveExamModel.SP_GetStudentResult_Result)">
+            <Parameter Name="CandidateID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RegisterCandidate">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="dob" Mode="In" Type="DateTime" />
+            <Parameter Name="clgId" Mode="In" Type="Int64" />
+            <Parameter Name="QualId" Mode="In" Type="Int64" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="mobile" Mode="In" Type="String" />
+            <Parameter Name="posId" Mode="In" Type="Int64" />
+            <Parameter Name="techId" Mode="In" Type="Int64" />
+            <Parameter Name="uname" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Boolean" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Technology_Delete">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="Technology_Insert">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="Technology_Update">
+            <Parameter Name="ID" Mode="In" Type="Int64" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="TestAnswer_Delete">
+            <Parameter Name="AnswerID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="TestAnswer_Insert">
+            <Parameter Name="QuestionID" Mode="In" Type="Int64" />
+            <Parameter Name="Answer" Mode="In" Type="String" />
+            <Parameter Name="IsRightAnswer" Mode="In" Type="Boolean" />
+            <Parameter Name="AnswerOrder" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TestAnswer_Select" ReturnType="Collection(LiveExamModel.TestAnswer_Select_Result)" />
+          <FunctionImport Name="TestAnswer_Update">
+            <Parameter Name="AnswerID" Mode="In" Type="Int64" />
+            <Parameter Name="QuestionID" Mode="In" Type="Int64" />
+            <Parameter Name="Answer" Mode="In" Type="String" />
+            <Parameter Name="IsRightAnswer" Mode="In" Type="Boolean" />
+            <Parameter Name="AnswerOrder" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TestAnswerListByQuestion" ReturnType="Collection(LiveExamModel.TestAnswerListByQuestion_Result)">
+            <Parameter Name="QuestionID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="TestCategory_DDL" ReturnType="Collection(LiveExamModel.TestCategory_DDL_Result)" />
+          <FunctionImport Name="TestCategory_Delete">
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TestCategory_Insert">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TestCategory_Select" ReturnType="Collection(LiveExamModel.TestCategory_Select_Result)" />
+          <FunctionImport Name="TestCategory_Update">
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="ErrorMsg" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TestCategoryLogin_DDL" ReturnType="Collection(LiveExamModel.TestCategoryLogin_DDL_Result)" />
+          <FunctionImport Name="TestQuestion_Delete">
+            <Parameter Name="QuestionID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="TestQuestion_Insert">
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+            <Parameter Name="Detail" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="QuestionID" Mode="InOut" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="TestQuestion_Select" ReturnType="Collection(LiveExamModel.TestQuestion_Select_Result)" />
+          <FunctionImport Name="TestQuestion_SelectByCategory" ReturnType="Collection(LiveExamModel.TestQuestion_SelectByCategory_Result)">
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="TestQuestion_Update">
+            <Parameter Name="QuestionID" Mode="In" Type="Int64" />
+            <Parameter Name="CategoryID" Mode="In" Type="Int64" />
+            <Parameter Name="Detail" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TestQuestionListByCategory" ReturnType="Collection(LiveExamModel.TestQuestionListByCategory_Result)">
+            <Parameter Name="i_CategoryID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="User_Login" ReturnType="Collection(LiveExamModel.User_Login_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="UserPassword" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Cand_Login_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CollegeId" Nullable="false" />
+          <Property Type="Int32" Name="QualificationId" Nullable="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="15" />
+          <Property Type="Int32" Name="PositionId" Nullable="false" />
+          <Property Type="Int32" Name="TechForTraining" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="RegisDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ExamDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="QueID" Nullable="true" />
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Int32" Name="TimeRemain" Nullable="true" />
+          <Property Type="Boolean" Name="IsExamComplete" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Export_Candidate_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="6" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CollegeId" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="QualificationId" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="PositionName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="TechForTraining" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="RegisDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ExamDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Export_Candidate_New_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="6" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CollegeId" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="QualificationId" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="PositionName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="TechForTraining" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="RegisDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ExamDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_AllCategory_Result">
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TotalQue" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_College_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CollegeName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="University" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_College_Tab_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CollegeName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="University" Nullable="false" MaxLength="100" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_Position_Result">
+          <Property Type="Int32" Name="Total" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="TimeMinutes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_Qualification_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="20" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_QueCategoryName_Result">
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TimeMinutes" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_QustionList_Result">
+          <Property Type="Int64" Name="GroupID" Nullable="true" />
+          <Property Type="Int32" Name="RandomNo" Nullable="true" />
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Detail" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="NoOfQuestion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_SelectedCategory_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="Int64" Name="QueCatID" Nullable="false" />
+          <Property Type="Int32" Name="NoOfQuestions" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_Technology_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="TechnologyName" Nullable="false" MaxLength="20" />
+          <Property Type="Boolean" Name="isActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetAdminQuestionList_Result">
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="Detail" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetResult_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="CandidateName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="Qualification" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CollegeName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Technology" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="RegisDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ExamDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Session_Login_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CollegeId" Nullable="false" />
+          <Property Type="Int32" Name="QualificationId" Nullable="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Mobile" Nullable="false" MaxLength="15" />
+          <Property Type="Int32" Name="PositionId" Nullable="false" />
+          <Property Type="Int32" Name="TechForTraining" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="RegisDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ExamDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="QueID" Nullable="true" />
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Int32" Name="TimeRemain" Nullable="true" />
+          <Property Type="Boolean" Name="IsExamComplete" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_GetStudentResult_Result">
+          <Property Type="Int32" Name="QueCatId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TotalQuestion" Nullable="true" />
+          <Property Type="Int32" Name="CorrectAnswer" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestAnswer_Select_Result">
+          <Property Type="Int64" Name="AnswerID" Nullable="false" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Boolean" Name="IsRightAnswer" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestAnswerListByQuestion_Result">
+          <Property Type="Int64" Name="AnswerID" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="Boolean" Name="IsRightAnswer" Nullable="true" />
+          <Property Type="Int32" Name="AnswerOrder" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="TestCategory_DDL_Result">
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TimeMinutes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestCategory_Select_Result">
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TimeMinutes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestCategoryLogin_DDL_Result">
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TimeMinutes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestQuestion_Select_Result">
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Detail" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestQuestion_SelectByCategory_Result">
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Detail" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TestQuestionListByCategory_Result">
+          <Property Type="Int32" Name="RandomNo" Nullable="true" />
+          <Property Type="Int64" Name="CategoryID" Nullable="false" />
+          <Property Type="Int64" Name="QuestionID" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Detail" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="User_Login_Result">
+          <Property Type="Int64" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="DisplayName" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LiveExamModelStoreContainer" CdmEntityContainer="LiveExamEntities">
+          <EntitySetMapping Name="CandExamLogs">
+            <EntityTypeMapping TypeName="LiveExamModel.CandExamLog">
+              <MappingFragment StoreEntitySet="CandExamLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="QueCatId" ColumnName="QueCatId" />
+                <ScalarProperty Name="QueId" ColumnName="QueId" />
+                <ScalarProperty Name="AnsId" ColumnName="AnsId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidates">
+            <EntityTypeMapping TypeName="LiveExamModel.Candidate">
+              <MappingFragment StoreEntitySet="Candidate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="TechForTraining" ColumnName="TechForTraining" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisDate" ColumnName="RegisDate" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="QueID" ColumnName="QueID" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="TimeRemain" ColumnName="TimeRemain" />
+                <ScalarProperty Name="IsExamComplete" ColumnName="IsExamComplete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colleges">
+            <EntityTypeMapping TypeName="LiveExamModel.College">
+              <MappingFragment StoreEntitySet="College">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CollegeName" ColumnName="CollegeName" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="LiveExamModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TechnologyId" ColumnName="TechnologyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PosQueJoins">
+            <EntityTypeMapping TypeName="LiveExamModel.PosQueJoin">
+              <MappingFragment StoreEntitySet="PosQueJoin">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="QueCatID" ColumnName="QueCatID" />
+                <ScalarProperty Name="NoOfQuestion" ColumnName="NoOfQuestion" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qualifications">
+            <EntityTypeMapping TypeName="LiveExamModel.Qualification">
+              <MappingFragment StoreEntitySet="Qualification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="LiveExamModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionAnswers">
+            <EntityTypeMapping TypeName="LiveExamModel.QuestionAnswer">
+              <MappingFragment StoreEntitySet="QuestionAnswer">
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="IsRightAnswer" ColumnName="IsRightAnswer" />
+                <ScalarProperty Name="AnswerOrder" ColumnName="AnswerOrder" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionCategories">
+            <EntityTypeMapping TypeName="LiveExamModel.QuestionCategory">
+              <MappingFragment StoreEntitySet="QuestionCategory">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Technologies">
+            <EntityTypeMapping TypeName="LiveExamModel.Technology">
+              <MappingFragment StoreEntitySet="Technology">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TechnologyName" ColumnName="TechnologyName" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="LiveExamModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="LiveExamModel.Store.Split" FunctionImportName="Split">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Split_Result">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Cand_Login" FunctionName="LiveExamModel.Store.Cand_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Cand_Login_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="TechForTraining" ColumnName="TechForTraining" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisDate" ColumnName="RegisDate" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="QueID" ColumnName="QueID" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="TimeRemain" ColumnName="TimeRemain" />
+                <ScalarProperty Name="IsExamComplete" ColumnName="IsExamComplete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Candidate_Insert" FunctionName="LiveExamModel.Store.Candidate_Insert" />
+          <FunctionImportMapping FunctionImportName="Change_IsActive" FunctionName="LiveExamModel.Store.Change_IsActive" />
+          <FunctionImportMapping FunctionImportName="Change_IsActive_College" FunctionName="LiveExamModel.Store.Change_IsActive_College" />
+          <FunctionImportMapping FunctionImportName="Change_IsActive_Result" FunctionName="LiveExamModel.Store.Change_IsActive_Result" />
+          <FunctionImportMapping FunctionImportName="College_Delete" FunctionName="LiveExamModel.Store.College_Delete" />
+          <FunctionImportMapping FunctionImportName="College_Insert" FunctionName="LiveExamModel.Store.College_Insert" />
+          <FunctionImportMapping FunctionImportName="College_Update" FunctionName="LiveExamModel.Store.College_Update" />
+          <FunctionImportMapping FunctionImportName="Export_Candidate" FunctionName="LiveExamModel.Store.Export_Candidate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Export_Candidate_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="TechForTraining" ColumnName="TechForTraining" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisDate" ColumnName="RegisDate" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Export_Candidate_New" FunctionName="LiveExamModel.Store.Export_Candidate_New">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Export_Candidate_New_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="TechForTraining" ColumnName="TechForTraining" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisDate" ColumnName="RegisDate" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_AllCategory" FunctionName="LiveExamModel.Store.Get_AllCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_AllCategory_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TotalQue" ColumnName="TotalQue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_College" FunctionName="LiveExamModel.Store.Get_College">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_College_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CollegeName" ColumnName="CollegeName" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_College_Tab" FunctionName="LiveExamModel.Store.Get_College_Tab">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_College_Tab_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CollegeName" ColumnName="CollegeName" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Position" FunctionName="LiveExamModel.Store.Get_Position">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_Position_Result">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Qualification" FunctionName="LiveExamModel.Store.Get_Qualification">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_Qualification_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_QueCategoryName" FunctionName="LiveExamModel.Store.Get_QueCategoryName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_QueCategoryName_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_QustionList" FunctionName="LiveExamModel.Store.Get_QustionList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_QustionList_Result">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="RandomNo" ColumnName="RandomNo" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NoOfQuestion" ColumnName="NoOfQuestion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_SelectedCategory" FunctionName="LiveExamModel.Store.Get_SelectedCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_SelectedCategory_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="QueCatID" ColumnName="QueCatID" />
+                <ScalarProperty Name="NoOfQuestions" ColumnName="NoOfQuestions" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Technology" FunctionName="LiveExamModel.Store.Get_Technology">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Get_Technology_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TechnologyName" ColumnName="TechnologyName" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Time" FunctionName="LiveExamModel.Store.Get_Time" />
+          <FunctionImportMapping FunctionImportName="GetAdminQuestionList" FunctionName="LiveExamModel.Store.GetAdminQuestionList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.GetAdminQuestionList_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetResult" FunctionName="LiveExamModel.Store.GetResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.GetResult_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+                <ScalarProperty Name="CollegeName" ColumnName="CollegeName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="RegisDate" ColumnName="RegisDate" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Insert_ExamResult" FunctionName="LiveExamModel.Store.Insert_ExamResult" />
+          <FunctionImportMapping FunctionImportName="Position_Delete" FunctionName="LiveExamModel.Store.Position_Delete" />
+          <FunctionImportMapping FunctionImportName="Position_Insert" FunctionName="LiveExamModel.Store.Position_Insert" />
+          <FunctionImportMapping FunctionImportName="Position_Update" FunctionName="LiveExamModel.Store.Position_Update" />
+          <FunctionImportMapping FunctionImportName="PosQueJoin_Insert" FunctionName="LiveExamModel.Store.PosQueJoin_Insert" />
+          <FunctionImportMapping FunctionImportName="PosQueJoin_Update" FunctionName="LiveExamModel.Store.PosQueJoin_Update" />
+          <FunctionImportMapping FunctionImportName="Session_Login" FunctionName="LiveExamModel.Store.Session_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.Session_Login_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="CollegeId" ColumnName="CollegeId" />
+                <ScalarProperty Name="QualificationId" ColumnName="QualificationId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="TechForTraining" ColumnName="TechForTraining" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegisDate" ColumnName="RegisDate" />
+                <ScalarProperty Name="ExamDate" ColumnName="ExamDate" />
+                <ScalarProperty Name="QueID" ColumnName="QueID" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="TimeRemain" ColumnName="TimeRemain" />
+                <ScalarProperty Name="IsExamComplete" ColumnName="IsExamComplete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetExamData" FunctionName="LiveExamModel.Store.SP_GetExamData" />
+          <FunctionImportMapping FunctionImportName="SP_GetStudentResult" FunctionName="LiveExamModel.Store.SP_GetStudentResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.SP_GetStudentResult_Result">
+                <ScalarProperty Name="QueCatId" ColumnName="QueCatId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TotalQuestion" ColumnName="TotalQuestion" />
+                <ScalarProperty Name="CorrectAnswer" ColumnName="CorrectAnswer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_RegisterCandidate" FunctionName="LiveExamModel.Store.SP_RegisterCandidate" />
+          <FunctionImportMapping FunctionImportName="Technology_Delete" FunctionName="LiveExamModel.Store.Technology_Delete" />
+          <FunctionImportMapping FunctionImportName="Technology_Insert" FunctionName="LiveExamModel.Store.Technology_Insert" />
+          <FunctionImportMapping FunctionImportName="Technology_Update" FunctionName="LiveExamModel.Store.Technology_Update" />
+          <FunctionImportMapping FunctionImportName="TestAnswer_Delete" FunctionName="LiveExamModel.Store.TestAnswer_Delete" />
+          <FunctionImportMapping FunctionImportName="TestAnswer_Insert" FunctionName="LiveExamModel.Store.TestAnswer_Insert" />
+          <FunctionImportMapping FunctionImportName="TestAnswer_Select" FunctionName="LiveExamModel.Store.TestAnswer_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestAnswer_Select_Result">
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="IsRightAnswer" ColumnName="IsRightAnswer" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestAnswer_Update" FunctionName="LiveExamModel.Store.TestAnswer_Update" />
+          <FunctionImportMapping FunctionImportName="TestAnswerListByQuestion" FunctionName="LiveExamModel.Store.TestAnswerListByQuestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestAnswerListByQuestion_Result">
+                <ScalarProperty Name="AnswerID" ColumnName="AnswerID" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="IsRightAnswer" ColumnName="IsRightAnswer" />
+                <ScalarProperty Name="AnswerOrder" ColumnName="AnswerOrder" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestCategory_DDL" FunctionName="LiveExamModel.Store.TestCategory_DDL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestCategory_DDL_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestCategory_Delete" FunctionName="LiveExamModel.Store.TestCategory_Delete" />
+          <FunctionImportMapping FunctionImportName="TestCategory_Insert" FunctionName="LiveExamModel.Store.TestCategory_Insert" />
+          <FunctionImportMapping FunctionImportName="TestCategory_Select" FunctionName="LiveExamModel.Store.TestCategory_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestCategory_Select_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestCategory_Update" FunctionName="LiveExamModel.Store.TestCategory_Update" />
+          <FunctionImportMapping FunctionImportName="TestCategoryLogin_DDL" FunctionName="LiveExamModel.Store.TestCategoryLogin_DDL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestCategoryLogin_DDL_Result">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TimeMinutes" ColumnName="TimeMinutes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestQuestion_Delete" FunctionName="LiveExamModel.Store.TestQuestion_Delete" />
+          <FunctionImportMapping FunctionImportName="TestQuestion_Insert" FunctionName="LiveExamModel.Store.TestQuestion_Insert" />
+          <FunctionImportMapping FunctionImportName="TestQuestion_Select" FunctionName="LiveExamModel.Store.TestQuestion_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestQuestion_Select_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestQuestion_SelectByCategory" FunctionName="LiveExamModel.Store.TestQuestion_SelectByCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestQuestion_SelectByCategory_Result">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TestQuestion_Update" FunctionName="LiveExamModel.Store.TestQuestion_Update" />
+          <FunctionImportMapping FunctionImportName="TestQuestionListByCategory" FunctionName="LiveExamModel.Store.TestQuestionListByCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.TestQuestionListByCategory_Result">
+                <ScalarProperty Name="RandomNo" ColumnName="RandomNo" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="User_Login" FunctionName="LiveExamModel.Store.User_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LiveExamModel.User_Login_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
